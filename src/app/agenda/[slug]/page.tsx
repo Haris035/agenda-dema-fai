@@ -93,13 +93,19 @@ export default function AgendaDetailPage({
         };
     }, [slug]);
 
-    const formatDate = (date: string) =>
-        new Intl.DateTimeFormat("id-ID", {
-            weekday: "long",
+    const formatDate = (date: string | null | undefined) => {
+        if (!date || !date.trim()) return null;
+
+        const parsedDate = new Date(`${date}T00:00:00`);
+
+        if (Number.isNaN(parsedDate.getTime())) return null;
+
+        return new Intl.DateTimeFormat("id-ID", {
             day: "numeric",
             month: "long",
             year: "numeric",
-        }).format(new Date(`${date}T00:00:00`));
+        }).format(parsedDate);
+    };
 
     const formatTime = (time: string | null) =>
         time ? `${time.slice(0, 5)} WIB` : null;

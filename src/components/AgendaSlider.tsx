@@ -99,7 +99,10 @@ export default function AgendaSlider() {
                     "id, title, slug, description, category, flyer_url, event_date, start_time, end_time, location, registration_url, registration_deadline, status, form_type"
                 )
                 .eq("status", "published")
-                .order("event_date", { ascending: true, nullsFirst: false });
+                .order("event_date", {
+                    ascending: true,
+                    nullsFirst: false,
+                });
 
             if (!active) return;
 
@@ -193,8 +196,8 @@ export default function AgendaSlider() {
                         key={category}
                         onClick={() => setActiveCategory(category)}
                         className={`shrink-0 rounded-full px-5 py-3 text-xs font-bold transition ${activeCategory === category
-                                ? "bg-[#166534] text-white shadow-lg shadow-emerald-900/15"
-                                : "border border-emerald-100 bg-white text-slate-600 hover:border-emerald-400 hover:text-emerald-800"
+                            ? "bg-[#166534] text-white shadow-lg shadow-emerald-900/15"
+                            : "border border-emerald-100 bg-white text-slate-600 hover:border-emerald-400 hover:text-emerald-800"
                             }`}
                     >
                         {category}
@@ -273,24 +276,23 @@ export default function AgendaSlider() {
                             new Date(agenda.registration_deadline).getTime() <=
                             currentTime;
 
-                        const hasRegistration =
-                            Boolean(agenda.registration_url) && !isClosed;
-
                         return (
                             <article
                                 key={agenda.id}
                                 className="group min-w-0 basis-[88%] shrink-0 snap-start overflow-hidden rounded-3xl border border-emerald-100 bg-white transition duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl hover:shadow-emerald-900/5 sm:basis-[calc((100%-1.5rem)/2)] lg:basis-[calc((100%-3rem)/3)]"
                             >
                                 {/* FLYER */}
-                                <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-green-900 to-emerald-500">
+                                <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
                                     {agenda.flyer_url ? (
                                         <img
                                             src={agenda.flyer_url}
                                             alt={`Flyer ${agenda.title}`}
-                                            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                                            loading="lazy"
+                                            decoding="async"
+                                            className="h-full w-full object-contain object-center transition duration-300"
                                         />
                                     ) : (
-                                        <div className="flex h-full flex-col items-center justify-center text-white">
+                                        <div className="flex h-full flex-col items-center justify-center bg-gradient-to-br from-green-900 to-emerald-500 text-white">
                                             <ImageIcon
                                                 size={42}
                                                 className="mb-3 opacity-70"
@@ -303,16 +305,25 @@ export default function AgendaSlider() {
                                     )}
 
                                     {/* BADGE */}
-                                    <div className="absolute left-3 right-3 top-3 z-10 flex items-center justify-between gap-2">
-                                        <span className="rounded-full bg-white/95 px-3 py-1.5 text-xs font-bold text-green-800 shadow-sm backdrop-blur-sm">
-                                            {agenda.category}
-                                        </span>
+                                    <div
+                                        className={`absolute left-3 right-3 top-3 z-10 flex items-center gap-2 ${isRecruitment ? "justify-end" : "justify-between"
+                                            }`}
+                                    >
+                                        {isRecruitment ? (
+                                            <span className="rounded-full bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm">
+                                                Open Recruitment
+                                            </span>
+                                        ) : (
+                                            <>
+                                                <span className="rounded-full bg-white/95 px-3 py-1.5 text-xs font-bold text-green-800 shadow-sm backdrop-blur-sm">
+                                                    {agenda.category}
+                                                </span>
 
-                                        <span className="rounded-full bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm">
-                                            {isRecruitment
-                                                ? "Open Recruitment"
-                                                : "Agenda Aktif"}
-                                        </span>
+                                                <span className="rounded-full bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm">
+                                                    Agenda Aktif
+                                                </span>
+                                            </>
+                                        )}
                                     </div>
                                 </div>
 
