@@ -7,8 +7,13 @@ export function createClient() {
         process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
     if (!supabaseUrl || !supabasePublishableKey) {
+        console.error("[Supabase ENV CHECK]", {
+            urlAvailable: Boolean(supabaseUrl),
+            keyAvailable: Boolean(supabasePublishableKey),
+        });
+
         throw new Error(
-            "Supabase URL atau Publishable Key belum dikonfigurasi di .env.local"
+            "Supabase URL atau Publishable Key belum tersedia."
         );
     }
 
