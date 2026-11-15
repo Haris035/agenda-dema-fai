@@ -107,12 +107,16 @@ export default function Home() {
             </div>
           </a>
 
+
           <nav className="hidden items-center gap-8 md:flex">
             <a href="#" className="text-sm font-bold text-emerald-700">
               Beranda
             </a>
             <a href="#agenda" className="text-sm font-medium text-slate-600 transition hover:text-emerald-700">
               Agenda
+            </a>
+            <a href="https://aspirasi.demafaiuika.my.id" className="text-sm font-medium text-slate-600 transition hover:text-emerald-700">
+              Aspirasi
             </a>
             <a href="#tentang" className="text-sm font-medium text-slate-600 transition hover:text-emerald-700">
               Tentang
@@ -142,6 +146,7 @@ export default function Home() {
             <div className="flex flex-col gap-4 text-sm font-semibold">
               <a href="#" onClick={() => setMenuOpen(false)}>Beranda</a>
               <a href="#agenda" onClick={() => setMenuOpen(false)}>Agenda</a>
+              <a href="https://aspirasi.demafaiuika.my.id" onClick={() => setMenuOpen(false)}>Aspirasi</a>
               <a href="#tentang" onClick={() => setMenuOpen(false)}>Tentang</a>
             </div>
           </div>
@@ -260,6 +265,7 @@ export default function Home() {
               <div className="mt-5 flex flex-col gap-3 text-sm text-emerald-50/60 md:items-end">
                 <a href="#agenda" className="transition hover:text-white">Daftar Agenda</a>
                 <a href="#tentang" className="transition hover:text-white">Tentang Platform</a>
+                <a href="https://aspirasi.demafaiuika.my.id" className="transition hover:text-white">Aspirasi</a>
               </div>
               <div className="mt-6 flex gap-4 md:justify-end">
               </div>
